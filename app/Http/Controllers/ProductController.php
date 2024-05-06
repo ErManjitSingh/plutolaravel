@@ -105,11 +105,7 @@ class ProductController extends Controller
     {
         //
     }
-    public function galary()
-    {
-        // $products = Product::all();
-        // return view('admin.galarylist', compact('products'));
-    }
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -158,8 +154,15 @@ class ProductController extends Controller
         $products->rating = $request->rating;
         $products->slug = Str::slug($request->tpackage);
         $products->save();
-        session()->flash('success', ' category Update successfully');
-        return redirect()->route('products.create');
+
+        if ($request->hasFile('photos')) {
+            foreach ($request->file('image') as $photo) {
+                $path = $photo->store('allimages'); // Store photo in storage/photos directory
+                $products->photos()->create(['path' => $path]);
+            }
+        }
+
+        return redirect()->back()->with('success', 'Product updated successfully');
     }
 
     /**
@@ -173,5 +176,4 @@ class ProductController extends Controller
         $products = Product::where('id', $id)->delete();
         return redirect()->route('products.create');
     }
-   
 }

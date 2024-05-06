@@ -22,9 +22,9 @@
                 <thead>
                     <tr>
                         <th scope="col">Id</th>
-                        <th scope="col">Title</th>
+                        <th scope="col">Category</th>
                         <th scope="col">Image</th>
-                        <th scope="col">Status</th>
+                        <!-- <th scope="col">Status</th> -->
                         <th scope="col">Operations</th>
                     </tr>
                 </thead>
@@ -34,7 +34,7 @@
                         <td> {{$category->id}} </td>
                         <td> {{$category->title}}</td>
                         <td> <img src="{{ asset('image/'. $category->image) }}" width="60px" height="40px"> </td>
-                        <td> {{$category->status}} </td>
+                        <!-- <td> {{$category->status}} </td> -->
                         <td> <a href="{{route('categories.edit',$category['id'])}}" class="btn btn-outline-secondary btn-icon-text">Edit
                                 <i class="typcn typcn-edit  btn-icon-append"></i></a>
                             <a href="{{route('delete-category',$category['id'])}}" onclick="return confirm('Are You Sure Delete Category')"

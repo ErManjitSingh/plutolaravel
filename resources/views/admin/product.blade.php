@@ -8,7 +8,6 @@
             <li class="breadcrumb-item active">Dashboard</li>
         </ol>
     </nav>
-    
 </div>
 <div class="row">
     <div class="col-md-9 grid-margin stretch-card">
@@ -25,11 +24,6 @@
                 </p>
                 <form class="forms-sample" action="{{route('products.store')}}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="form-group">
-                        <label>Tour Package<span style="color: red;">*</span></label>
-                        <input type="text" class="form-control" name="tpackage" id="tpackage" required>
-                    </div>
-                    <span style="color: red;"> @error('tpackage') {{$message}} @enderror</span>
                     <div class="form-group">
                         <label>Add Category<span style="color: red;">*</span></label>
                         <select name="category" class="form-control" required>
@@ -50,6 +44,11 @@
                         </select>
                     </div>
                     <span style="color: red;"> @error('subcat') {{$message}} @enderror</span>
+                    <div class="form-group">
+                        <label>Tour Package<span style="color: red;">*</span></label>
+                        <input type="text" class="form-control" name="tpackage" id="tpackage" required>
+                    </div>
+                    <span style="color: red;"> @error('tpackage') {{$message}} @enderror</span>
                     <div class="form-group">
                         <label>Tour Image<span style="color: red;">*</span></label>
                         <input type="file" class="form-control" name="timg" id="timg" required>

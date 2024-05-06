@@ -24,7 +24,7 @@
                         <th scope="col">Category</th>
                         <th scope="col">Subcategory</th>
                         <th scope="col">Image</th>
-                        <th scope="col">Status</th>
+                        <!-- <th scope="col">Status</th> -->
                         <th scope="col">Operations</th>
                     </tr>
                 </thead>
@@ -32,12 +32,9 @@
                     @foreach($subcategories as $subcat)
                     <tr>
                         <td> {{$subcat->id}} </td>
-                        @foreach($categories as $cat)
-                        <td> {{$cat->title}} </td>
-                        @endforeach
+                        <td> {{$subcat->category->title}} </td>
                         <td> {{$subcat->title}} </td>
                         <td> <img src="{{ asset('image/'. $subcat->image) }}" width="60px" height="40px"> </td>
-                        <td> {{$subcat->status}} </td>
                         <td> <a href="{{route('subcategories.edit',$subcat['id'])}}" class="btn btn-outline-secondary btn-icon-text">Edit
                                 <i class="typcn typcn-edit  btn-icon-append"></i></a>
                             <a href="{{route('deletesubcategory',$subcat['id'])}}" onclick="return confirm('Are You Sure Delete Subcategory')" class="btn btn-outline-danger btn-icon-text">Delete

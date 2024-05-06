@@ -58,7 +58,12 @@
                         <input type="file" class="form-control" name="timg" id="timg" value="{{$products->image}}"
                             required>
                     </div>
-                    <!-- <span style="color: red;"> @error('timg') {{$message}} @enderror</span> -->
+                    <div class="form-group">
+                        <label>All Image<span style="color: red;">*</span></label>
+                        <input type="file" class="form-control" name="image[]" multiple id="image" value="{{$products->image}}"
+                            required>
+                    </div>
+                    <!-- <span style="color: red;"> @error('image') {{$message}} @enderror</span> -->
                     <div class="form-group">
                         <label>Price<span style="color: red;">*</span></label>
                         <input type="text" class="form-control" name="price" id="price" value="{{$products->price}}"

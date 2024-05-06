@@ -21,9 +21,9 @@
                 <thead>
                     <tr>
                         <th scope="col">Id</th>
-                        <th scope="col">package</th>
                         <th scope="col">Category</th>
                         <th scope="col">Subcategory</th>
+                        <th scope="col">package</th>
                         <th scope="col">Tour_Image</th>
                         <!-- <th scope="col">Price</th>
                         <th scope="col">Discount_price</th>
@@ -38,20 +38,10 @@
                     @foreach($products as $pro)
                     <tr>
                         <td> {{$pro->id}} </td>
+                        <td> {{$pro->category->title}} </td>
+                        <td> {{$pro->subcategory->title}} </td>
                         <td> {{$pro->title}} </td>
-                        @foreach($categories as $cat)
-                        <td> {{$cat->title}} </td>
-                        @endforeach
-                        @foreach($subcategories as $subcat)
-                        <td> {{$subcat->title}} </td>
-                        @endforeach
                         <td> <img src="{{ asset('image/'. $pro->image) }}" width="60px" height="40px"> </td>
-                        <!-- <td> {{$pro->price}} </td> -->
-                        <!-- <td> {{$pro->discount_price}} </td> -->
-                        <!-- <td title="{{$pro->description}}">{{$pro->description}} </td> -->
-                        <!-- <td> {{$pro->short_description}} </td> -->
-                        <!-- <td> {{$pro->rating}} </td> -->
-                        <!-- <td> {{$pro->status}} </td> -->
                         <td> <a href="{{route('products.edit',$pro['id'])}}" class="btn btn-outline-secondary btn-icon-text">Edit
                                 <i class="typcn typcn-edit  btn-icon-append"></i></a>
                             <a href="{{route('deleteproduct',$pro['id'])}}" onclick="return confirm('Are You Sure Delete Product')" class="btn btn-outline-danger btn-icon-text">Delete

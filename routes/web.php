@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
@@ -21,12 +22,14 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/dashboard', function () {
-    return view('admin.dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('admin.dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
 
+    Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard')->middleware('auth.dashboard');
+    
     // resource
 
     Route::resource('categories', CategoryController::class);
@@ -34,7 +37,6 @@ Route::middleware('auth')->group(function () {
     Route::resource('products', ProductController::class);
 
     // Endresource
-
     //  delete
     Route::get('delete-category/{id}', [CategoryController::class, 'destroy'])->name('delete-category');
     Route::get('deletesubcategory/{id}', [SubcategoryController::class, 'destroy'])->name('deletesubcategory');
