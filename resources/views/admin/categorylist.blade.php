@@ -11,7 +11,7 @@
     </nav>
     
 </div>
-<div class="col-lg-9">
+<div class="col-lg-12">
 
     <div class="card">
         <div class="card-body">
@@ -22,7 +22,11 @@
                 <thead>
                     <tr>
                         <th scope="col">Id</th>
-                        <th scope="col">Category</th>
+                        <th scope="col">Country</th>
+                        <th scope="col">State</th>
+                        <th scope="col">District</th>
+                        <th scope="col">City</th>
+                        <th scope="col">Activity Category</th>
                         <th scope="col">Image</th>
                         <!-- <th scope="col">Status</th> -->
                         <th scope="col">Operations</th>
@@ -32,6 +36,10 @@
                     @foreach($categories as $category)
                     <tr>
                         <td> {{$category->id}} </td>
+                        <td> {{$category->country}} </td>
+                        <td> {{$category->state}} </td>
+                        <td> {{$category->district}} </td>
+                        <td> {{$category->city}} </td>
                         <td> {{$category->title}}</td>
                         <td> <img src="{{ asset('image/'. $category->image) }}" width="60px" height="40px"> </td>
                         <!-- <td> {{$category->status}} </td> -->

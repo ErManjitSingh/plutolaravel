@@ -7,14 +7,13 @@
             <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Home</a></li>
             <li class="breadcrumb-item active">Dashboard</li>
         </ol>
-    </nav>
-    
+</nav>
 </div>
 <div class="row">
     <div class="col-md-12 grid-margin stretch-card">
         <div class="card">
             <div class="card-body">
-                <h4 class="card-title">Edit Subcategory</h4>
+                <h4 class="card-title">Edit Activities</h4>
                 <p class="card-description">
                     @if(session()->has('success'))
                 <div class="alert alert-success">{{session('success')}}</div>
@@ -23,18 +22,76 @@
                 <div class="alert alert-danger">{{session('error')}}</div>
                 @endif
                 </p>
-                <form class="forms-sample" action="{{route('products.update',[$products->id])}}" method="POST"
-                    enctype="multipart/form-data">
+                <form class="forms-sample" action="{{route('products.update',[$products->id])}}" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="_method" value="PATCH">
                     @csrf
+                    <div class="form-group">
+                        <label>Add Country<span style="color: red;">*</span></label>
+                        <select name="country" class="form-control" required>
+                            <option value="">Select Category</option>
+                            @foreach($categories as $category)
+                            <option value="{{$category->id}}">{{$category->country}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <span style="color: red;"> @error('country') {{$message}} @enderror</span>
+                    <div class="form-group">
+                        <label>Add State<span style="color: red;">*</span></label>
+                        <select name="state" class="form-control" required>
+                            <option value="">Select Category</option>
+                            @foreach($categories as $category)
+                            <option value="{{$category->id}}">{{$category->state}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <span style="color: red;"> @error('state') {{$message}} @enderror</span>
+                    <div class="form-group">
+                        <label>Add District<span style="color: red;">*</span></label>
+                        <select name="dist" class="form-control" required>
+                            <option value="">Select Category</option>
+                            @foreach($categories as $category)
+                            <option value="{{$category->id}}">{{$category->district}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <span style="color: red;"> @error('dist') {{$message}} @enderror</span>
+                    <div class="form-group">
+                        <label>Add City<span style="color: red;">*</span></label>
+                        <select name="city" class="form-control" required>
+                            <option value="">Select Category</option>
+                            @foreach($categories as $category)
+                            <option value="{{$category->id}}">{{$category->city}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <span style="color: red;"> @error('city') {{$message}} @enderror</span>
+                    <div class="form-group">
+                        <label>Town<span style="color: red;">*</span></label>
+                        <input type="text" class="form-control" value="{{$products->location}}" name="town" id="town" required>
+                    </div>
+                    <span style="color: red;"> @error('town') {{$message}} @enderror</span>
+                    <!-- <div class="form-group">
+                        <label>SubCategory<span style="color: red;">*</span></label>
+                        <input type="text" class="form-control" name="subcat" id="subcat" required>
+                    </div>
+                    <span style="color: red;"> @error('subcat') {{$message}} @enderror</span> -->
+                    <div class="form-group">
+                        <label>Acitivity Category<span style="color: red;">*</span></label>
+                        <select name="category" class="form-control" required>
+                            <option value="">Select Category</option>
+                            @foreach($categories as $category)
+                            <option value="{{$category->id}}">{{$category->title}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <span style="color: red;"> @error('category') {{$message}} @enderror</span>
                     <input type="hidden" name="id" value="{{$products->id}}" />
                     <div class="form-group">
-                        <label>Package<span style="color: red;">*</span></label>
-                        <input type="text" class="form-control" name="tpackage" id="subcat" value="{{$products->title}}"
-                            required>
+                        <label>Activities<span style="color: red;">*</span></label>
+                        <input type="text" class="form-control" name="tpackage" id="subcat" value="{{$products->title}}" required>
                     </div>
-                    <div class="form-group">
-                        <label>Add Category<span style="color: red;">*</span></label>
+                    <!-- <div class="form-group">
+                        <label>Activities Category<span style="color: red;">*</span></label>
                         <select name="category" class="form-control" required>
                             <option value="">Select Category</option>
                             @foreach($categories as $category)
@@ -42,8 +99,8 @@
                             </option>
                             @endforeach
                         </select>
-                    </div>
-                    <div class="form-group">
+                    </div> -->
+                    <!-- <div class="form-group">
                         <label>Add Subcategory<span style="color: red;">*</span></label>
                         <select name="subcat" class="form-control" required>
                             <option value="">Select Subcategory</option>
@@ -52,19 +109,17 @@
                             @endforeach
                         </select>
                     </div>
-                    <span style="color: red;"> @error('category') {{$message}} @enderror</span>
+                    <span style="color: red;"> @error('category') {{$message}} @enderror</span> -->
                     <div class="form-group">
-                        <label>Image<span style="color: red;">*</span></label>
-                        <input type="file" class="form-control" name="timg" id="timg" value="{{$products->image}}"
-                            required>
+                        <label>Acitivity Image<span style="color: red;">*</span></label>
+                        <input type="file" class="form-control" name="timg" id="timg" value="{{$products->image}}" required>
                     </div>
                     <div class="form-group">
-                        <label>All Image<span style="color: red;">*</span></label>
-                        <input type="file" class="form-control" name="image[]" multiple id="image" value="{{$products->image}}"
-                            required>
+                        <label>All Acitivity Image<span style="color: red;">*</span></label>
+                        <input type="file" class="form-control" name="image[]" multiple id="image" value="{{$products->image}}" required>
                     </div>
                     <!-- <span style="color: red;"> @error('image') {{$message}} @enderror</span> -->
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label>Price<span style="color: red;">*</span></label>
                         <input type="text" class="form-control" name="price" id="price" value="{{$products->price}}"
                             required>
@@ -73,22 +128,20 @@
                         <label>Descount Price<span style="color: red;">*</span></label>
                         <input type="text" class="form-control" name="dprice" id="dprice"
                             value="{{$products->discount_price}}" required>
-                    </div>
+                    </div> -->
                     <div class="form-group">
                         <label>Descripion<span style="color: red;">*</span></label>
-                        <input type="text" class="form-control" name="desc" id="desc" value="{{$products->description}}"
-                            required>
+                        <input type="text" class="form-control" name="desc" id="desc" value="{{$products->description}}" required>
                     </div>
                     <div class="form-group">
                         <label>Short Description<span style="color: red;">*</span></label>
-                        <input type="text" class="form-control" name="sdesc" id="sdesc"
-                            value="{{$products->short_description}}" required>
+                        <input type="text" class="form-control" name="sdesc" id="sdesc" value="{{$products->short_description}}" required>
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label>Rating<span style="color: red;">*</span></label>
                         <input type="text" class="form-control" name="rating" id="rating" value="{{$products->rating}}"
                             required>
-                    </div>
+                    </div> -->
                     <!-- <span style="color: red;"> @error('catimg') {{$message}} @enderror</span> -->
                     <div class="form-group pb-3">
                         <label>Status</label>

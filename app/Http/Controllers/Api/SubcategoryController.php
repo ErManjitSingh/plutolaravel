@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Subcategory;
 
-
 class SubcategoryController extends Controller
 {
     /**
@@ -18,7 +17,6 @@ class SubcategoryController extends Controller
     {
         $subcategories = Subcategory::all();
         if ($subcategories->count() > 0) {
-            
             return response()->json([
                 'Status' => 'The Request Was Successful',
                 'Subcategory' => $subcategories

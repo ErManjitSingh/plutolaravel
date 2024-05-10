@@ -40,6 +40,10 @@ class CategoryController extends Controller
 
         $request->validate([
             'category' => 'required',
+            'country' => 'required',
+            'state' => 'required',
+            'dist' => 'required',
+            'city' => 'required',
             'catimg' => 'required',
         ]);
 
@@ -49,6 +53,10 @@ class CategoryController extends Controller
             $request->catimg->move(public_path('image'), $imageName);
             $category = new Category();
             $category->title = $request->category;
+            $category->country = $request->country;
+            $category->state = $request->state;
+            $category->	district = $request->dist;
+            $category->	city = $request->city;
             $category->image = $imageName;
             $category->status = $request->status;
             $category->slug = Str::slug($request->category);
@@ -57,7 +65,7 @@ class CategoryController extends Controller
             return redirect()->back();
         }
         session()->flash('error', 'Category already exist');
-        return redirect()->back();
+        return redirect()->back()->with('success', 'Product updated successfully');;
     }
 
     /**
@@ -98,6 +106,10 @@ class CategoryController extends Controller
         $imageName = time() . '.' . $request->catimg->extension();
         $request->catimg->move(public_path('image'), $imageName);
         $categories = Category::find($request->id);
+        $category->country = $request->country;
+        $category->state = $request->state;
+        $category->	district = $request->dist;
+        $category->	city = $request->city;
         $categories->title = $request->category;
         // $categories->image = $request->catimg;
         $categories->image = $imageName;

@@ -29,13 +29,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard')->middleware('auth.dashboard');
-    
+    Route::get('calendar', [HomeController::class, 'create'])->name('calendar');
     // resource
 
     Route::resource('categories', CategoryController::class);
     Route::resource('subcategories', SubcategoryController::class);
     Route::resource('products', ProductController::class);
-
     // Endresource
     //  delete
     Route::get('delete-category/{id}', [CategoryController::class, 'destroy'])->name('delete-category');

@@ -28,7 +28,10 @@
         </ul>
       </li><!-- End Components Nav -->
 
-      <li class="nav-item">
+
+      <!-- Subcategories -->
+
+      <!-- <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-journal-text"></i><span>Subcategories</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
@@ -44,25 +47,35 @@
             </a>
           </li>
         </ul>
-      </li><!-- End Forms Nav -->
+      </li> -->
+      <!-- End Subcategories -->
+
+
       <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Tour Packages</span><i class="bi bi-chevron-down ms-auto"></i>
+          <i class="bi bi-layout-text-window-reverse"></i><span>Activities </span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
             <a href="{{route('products.index')}}">
-              <i class="bi bi-circle"></i><span>Add Packages</span>
+              <i class="bi bi-circle"></i><span>Activities</span>
             </a>
           </li>
           <li>
             <a href="{{route('products.create')}}">
-              <i class="bi bi-circle"></i><span>Packages List</span>
+              <i class="bi bi-circle"></i><span>Activities List</span>
             </a>
           </li>
         </ul>
-      </li><!-- End Tables Nav -->
- 
+      </li>
+      <!-- <li class="nav-item">
+        <a class="nav-link " href="#">
+          <i class="bi bi-grid"></i>
+          <span>calendar</span>
+        </a>
+      </li> -->
+      <!-- End Tables Nav -->
+
       <!-- <li class="nav-item">
         <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-bar-chart"></i><span>Galary</span><i class="bi bi-chevron-down ms-auto"></i>

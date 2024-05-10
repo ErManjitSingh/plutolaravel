@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\Category;
+use App\Models\Subcategory;
+use Illuminate\Database\Eloquent\Collection;
+
 class HomeController extends Controller
 {
     /**
@@ -13,8 +17,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-       $products = Product::all();
-        return view('admin.dashboard',compact('products'));
+        // $categories = Category::count();
+        // $subcategories = Subcategory::count();
+        $products = Product::latest()->take(10)->get();
+        return view('admin.dashboard', compact('products'));
     }
 
     /**
@@ -24,7 +30,7 @@ class HomeController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.calendar');
     }
 
     /**

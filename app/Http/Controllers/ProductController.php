@@ -6,8 +6,8 @@ use App\Models\Category;
 use App\Models\Image;
 use App\Models\Subcategory;
 use App\Models\Product;
-use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 
 
 class ProductController extends Controller
@@ -49,15 +49,21 @@ class ProductController extends Controller
     public function store(Request $request)
     {
         $request->validate([
+            'country' => 'required',
+            'state' => 'required',
+            'dist' => 'required',
+            'city' => 'required',
+            'town' => 'required',
+
             'tpackage' => 'required',
             'category' => 'required',
-            'subcat' => 'required',
+            // 'subcat' => 'required',
             'timg' => 'required',
-            'price' => 'required',
-            'dprice' => 'required',
+            // 'price' => 'required',
+            // 'dprice' => 'required',
             'desc' => 'required',
             'sdesc' => 'required',
-            'rating' => 'required',
+            // 'rating' => 'required',
         ]);
         $product = Product::where('title', $request->tpackage)->first();
         if ($product == null) {
@@ -66,15 +72,20 @@ class ProductController extends Controller
             $request->timg->move(public_path('image'), $imageName);
             // };
             $product = new Product;
+            $product->country = $request->country;
+            $product->state = $request->state;
+            $product->district = $request->dist;
+            $product->city = $request->city;
+            $product->location = $request->location;
             $product->title = $request->tpackage;
             $product->category_id = $request->category;
-            $product->subcategory_id = $request->subcat;
+            // $product->subcategory_id = $request->subcat;
             $product->image = $imageName;
-            $product->price = $request->price;
-            $product->discount_price = $request->dprice;
+            // $product->price = $request->price;
+            // $product->discount_price = $request->dprice;
             $product->description = $request->desc;
             $product->short_description = $request->sdesc;
-            $product->rating = $request->rating;
+            // $product->rating = $request->rating;
             $product->title = $request->tpackage;
             $product->slug = Str::slug($request->tpackage);
             $product->status = $request->status;
@@ -143,12 +154,18 @@ class ProductController extends Controller
         $imageName = time() . '.' . $request->timg->extension();
         $request->timg->move(public_path('image'), $imageName);
         $products = Product::find($request->id);
+        $products->country = $request->country;
+        $products->state = $request->state;
+        $products->district = $request->dist;
+        $products->city = $request->city;
+        $products->location = $request->location;
+        $products->title = $request->tpackage;
         $products->title = $request->tpackage;
         $products->category_id = $request->category;
-        $products->subcategory_id = $request->subcat;
+        // $products->subcategory_id = $request->subcat;
         $products->image = $imageName;
-        $products->price = $request->price;
-        $products->discount_price = $request->dprice;
+        // $products->price = $request->price;
+        // $products->discount_price = $request->dprice;
         $products->description = $request->desc;
         $products->short_description = $request->sdesc;
         $products->rating = $request->rating;
@@ -161,7 +178,6 @@ class ProductController extends Controller
                 $products->photos()->create(['path' => $path]);
             }
         }
-
         return redirect()->back()->with('success', 'Product updated successfully');
     }
 
