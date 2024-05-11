@@ -76,7 +76,7 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        $category =Category::all();
+        //
     }
 
     /**
