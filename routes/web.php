@@ -2,9 +2,14 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\CountryController;
 use App\Http\Controllers\HomeController;
-use App\Http\Controllers\SubcategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\StateController;
+use App\Http\Controllers\DistrictController;
+use App\Http\Controllers\CityController;
+use App\Http\Controllers\LocationsiteController;
+use App\Models\Product;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,7 +30,8 @@ use Illuminate\Support\Facades\Route;
 // Route::get('/dashboard', function () {
 //     return view('admin.dashboard');
 // })->middleware(['auth', 'verified'])->name('dashboard');
-
+// Route::resource('products', ProductController::class);
+// Route::get('products', [ProductController::class, 'index'])->name('products.index');
 Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard')->middleware('auth.dashboard');
@@ -33,16 +39,26 @@ Route::middleware('auth')->group(function () {
     // resource
 
     Route::resource('categories', CategoryController::class);
-    Route::resource('subcategories', SubcategoryController::class);
+    Route::resource('countries', CountryController::class);
     Route::resource('products', ProductController::class);
+    Route::resource('states', StateController::class);
+    Route::resource('districts', DistrictController::class);
+    Route::resource('cities', CityController::class);
+    Route::resource('locationsites', LocationsiteController::class);
     // Endresource
+
+    // Product Routing
+    Route::get('images', [ProductController::class, 'images'])->name('images');
+    Route::get('add-product', [ProductController::class, 'index'])->name('add-product');
+    Route::POST('product-store', [ProductController::class, 'store'])->name('product-store');
+    Route::get('add-actitity', [ProductController::class, 'activity'])->name('add-actitity');
+    // Endproduct Routing
+    
     //  delete
     Route::get('delete-category/{id}', [CategoryController::class, 'destroy'])->name('delete-category');
-    Route::get('deletesubcategory/{id}', [SubcategoryController::class, 'destroy'])->name('deletesubcategory');
     Route::get('deleteproduct/{id}', [ProductController::class, 'destroy'])->name('deleteproduct');
     // Route::get('tour-galary',[ProductController::class,'galary'])->name('tour-galary');
     // enddelete
-
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');

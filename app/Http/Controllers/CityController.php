@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers;
 
-use App\Http\Controllers\Controller;
-use App\Models\Image;
+use App\Models\City;
+use App\Models\Country;
+use App\Models\State;
+use App\Models\District;
 use Illuminate\Http\Request;
 
-class ImageController extends Controller
+class CityController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,19 +17,10 @@ class ImageController extends Controller
      */
     public function index()
     {
-        $images = Image::all();
-        if ($images->count() > 0) {
-            
-            return response()->json([
-                'Status' => 'The Request Was Successful',
-                'Iamges' => $images
-            ], 200);
-        } else {
-            return response()->json([
-                'Status' => '404',
-                'Message' => 'No Images Found'
-            ], 404);
-        }
+        $countries = Country::all();
+        $states = State::all();
+        $districts = District::all();
+        return view('admin.city',compact('countries','states','districts'));
     }
 
     /**
@@ -48,7 +41,26 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'country' => 'required',
+            'state' => 'required',
+            'dist' => 'required',
+            'city' => 'required',
+        ]);
+
+        $city = City::where('city', $request->city)->first();
+        if ($city == Null) {
+            $city = new City();
+            $city->country_id = $request->country;
+            $city->state_id = $request->state;
+            $city->district_id = $request->dist;
+            $city->city = $request->city;
+            $city->save();
+            session()->flash('success', 'new City added successfully');
+            return redirect()->back();
+        }
+        session()->flash('error', 'City already exist');
+        return redirect()->back()->with('success', 'Product updated successfully');
     }
 
     /**

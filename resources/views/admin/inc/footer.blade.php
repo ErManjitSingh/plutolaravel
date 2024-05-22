@@ -19,6 +19,8 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+  <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
+
 
   <!-- Vendor JS Files -->
 
@@ -36,18 +38,25 @@
   <script>
       $(document).ready(function() {
           $('#calendar').fullCalendar({
-            header: {
-                right: 'prev,next today',
-                left: 'title',
-            },
-        //    events: booking,
-        //    selectable: true,
-        //    selectHelper: true,
-        //    select: function(start, end, allDay) {
+              header: {
+                  right: 'prev,next today',
+                  left: 'title',
+              },
+              //    events: booking,
+              //    selectable: true,
+              //    selectHelper: true,
+              //    select: function(start, end, allDays) {
 
-        //    }
+              //    }
           })
       });
+  </script>
+  <script>
+      ClassicEditor
+          .create(document.querySelector('#text-editor'))
+          .catch(error => {
+              console.error(error);
+          });
   </script>
   <!-- <script>
        tinymce.init({

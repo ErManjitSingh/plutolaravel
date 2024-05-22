@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Http\Controllers\Api;
-
-use App\Http\Controllers\Controller;
-use App\Models\Image;
+namespace App\Http\Controllers;
+use App\Models\Country;
+use App\Models\State;
 use Illuminate\Http\Request;
 
-class ImageController extends Controller
+class StateController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,19 +14,8 @@ class ImageController extends Controller
      */
     public function index()
     {
-        $images = Image::all();
-        if ($images->count() > 0) {
-            
-            return response()->json([
-                'Status' => 'The Request Was Successful',
-                'Iamges' => $images
-            ], 200);
-        } else {
-            return response()->json([
-                'Status' => '404',
-                'Message' => 'No Images Found'
-            ], 404);
-        }
+        $countries = Country::all();
+        return view('admin.state', compact('countries'));
     }
 
     /**
@@ -48,7 +36,22 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'country' => 'required',
+            'state' => 'required',
+        ]);
+
+        $state = State::where('state', $request->state)->first();
+        if ($state == Null) {
+            $state = new State();
+            $state->country_id = $request->country;
+            $state->state = $request->state;
+            $state->save();
+            session()->flash('success', 'new State added successfully');
+            return redirect()->back();
+        }
+        session()->flash('error', 'State already exist');
+        return redirect()->back()->with('success', 'Product updated successfully');
     }
 
     /**

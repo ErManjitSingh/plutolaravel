@@ -26,9 +26,9 @@
                         <th scope="col">State</th>
                         <th scope="col">District</th>
                         <th scope="col">City</th>
-                        <th scope="col">Activity Category</th>
+                        <th scope="col">Location_Site</th>
+                        <th scope="col">Activity_Category</th>
                         <th scope="col">Image</th>
-                        <!-- <th scope="col">Status</th> -->
                         <th scope="col">Operations</th>
                     </tr>
                 </thead>
@@ -36,11 +36,12 @@
                     @foreach($categories as $category)
                     <tr>
                         <td> {{$category->id}} </td>
-                        <td> {{$category->country}} </td>
-                        <td> {{$category->state}} </td>
-                        <td> {{$category->district}} </td>
-                        <td> {{$category->city}} </td>
-                        <td> {{$category->title}}</td>
+                        <td> {{$category->country->country}} </td>
+                        <td> {{$category->state->state}} </td>
+                        <td> {{$category->district->district}} </td>
+                        <td> {{$category->city->city}} </td>
+                        <td> {{$category->location_site}}</td>
+                        <td> {{$category->title}} </td>
                         <td> <img src="{{ asset('image/'. $category->image) }}" width="60px" height="40px"> </td>
                         <!-- <td> {{$category->status}} </td> -->
                         <td> <a href="{{route('categories.edit',$category['id'])}}" class="btn btn-outline-secondary btn-icon-text">Edit

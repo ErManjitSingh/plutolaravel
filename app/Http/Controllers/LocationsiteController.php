@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers\Api;
-
-use App\Http\Controllers\Controller;
-use App\Models\Image;
+namespace App\Http\Controllers;
+use App\Models\Country;
+use App\Models\State;
+use App\Models\District;
+use App\Models\City;
+use App\Models\Locationsite;
 use Illuminate\Http\Request;
 
-class ImageController extends Controller
+class LocationsiteController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,19 +17,11 @@ class ImageController extends Controller
      */
     public function index()
     {
-        $images = Image::all();
-        if ($images->count() > 0) {
-            
-            return response()->json([
-                'Status' => 'The Request Was Successful',
-                'Iamges' => $images
-            ], 200);
-        } else {
-            return response()->json([
-                'Status' => '404',
-                'Message' => 'No Images Found'
-            ], 404);
-        }
+        $countries = Country::all();
+        $states = State::all();
+        $cities = City::all();
+        $districts = District::all();
+        return view('admin.locationsite',compact('countries','states','cities','districts'));
     }
 
     /**
@@ -48,7 +42,28 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'country' => 'required',
+            'state' => 'required',
+            'dist' => 'required',
+            'city' => 'required',
+            'lsite' => 'required',
+        ]);
+
+        $location = Locationsite::where('location_site', $request->lsite)->first();
+        if ($location == Null) {
+            $location = new Locationsite();
+            $location->country_id = $request->country;
+            $location->state_id = $request->state;
+            $location->district_id = $request->dist;
+            $location->city_id = $request->city;
+            $location->location_site = $request->lsite;
+            $location->save();
+            session()->flash('success', 'new Location added successfully');
+            return redirect()->back();
+        }
+        session()->flash('error', 'Location already exist');
+        return redirect()->back()->with('success', 'Product updated successfully');
     }
 
     /**

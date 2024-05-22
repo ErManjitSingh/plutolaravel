@@ -19,7 +19,7 @@
                 <div class="row">
 
                     <!-- Top Selling -->
-                    <div class="col-12">
+                    <!-- <div class="col-12">
                         <div class="card top-selling overflow-auto">
                             <div class="card-body pb-0">
                                 <h5 class="card-title">Recent Activities</h5>
@@ -47,7 +47,8 @@
                             </div>
 
                         </div>
-                    </div><!-- End Top Selling -->
+                    </div> -->
+                    <!-- End Top Selling -->
 
                 </div>
             </div><!-- End Left side columns -->

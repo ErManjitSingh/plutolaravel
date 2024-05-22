@@ -1,12 +1,13 @@
 <?php
 
-namespace App\Http\Controllers\Api;
-
-use App\Http\Controllers\Controller;
-use App\Models\Image;
+namespace App\Http\Controllers;
+use App\Models\Country;
+use App\Models\State;
+use App\Models\City;
+use App\Models\District;
 use Illuminate\Http\Request;
 
-class ImageController extends Controller
+class DistrictController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,19 +16,9 @@ class ImageController extends Controller
      */
     public function index()
     {
-        $images = Image::all();
-        if ($images->count() > 0) {
-            
-            return response()->json([
-                'Status' => 'The Request Was Successful',
-                'Iamges' => $images
-            ], 200);
-        } else {
-            return response()->json([
-                'Status' => '404',
-                'Message' => 'No Images Found'
-            ], 404);
-        }
+        $countries = Country::all();
+        $states = State::all();
+        return view('admin.district',compact('states','countries'));
     }
 
     /**
@@ -48,7 +39,24 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'country' => 'required',
+            'state' => 'required',
+            'dist' => 'required',
+        ]);
+
+        $district = District::where('district', $request->dist)->first();
+        if ($district == Null) {
+            $district = new District();
+            $district->country_id = $request->country;
+            $district->state_id = $request->state;
+            $district->district = $request->dist;
+            $district->save();
+            session()->flash('success', 'new District added successfully');
+            return redirect()->back();
+        }
+        session()->flash('error', 'District already exist');
+        return redirect()->back()->with('success', 'Product updated successfully');
     }
 
     /**

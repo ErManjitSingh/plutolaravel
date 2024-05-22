@@ -1,12 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Api;
-
-use App\Http\Controllers\Controller;
-use App\Models\Image;
+namespace App\Http\Controllers;
+use App\Models\Country; 
 use Illuminate\Http\Request;
 
-class ImageController extends Controller
+class CountryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,19 +13,7 @@ class ImageController extends Controller
      */
     public function index()
     {
-        $images = Image::all();
-        if ($images->count() > 0) {
-            
-            return response()->json([
-                'Status' => 'The Request Was Successful',
-                'Iamges' => $images
-            ], 200);
-        } else {
-            return response()->json([
-                'Status' => '404',
-                'Message' => 'No Images Found'
-            ], 404);
-        }
+        return view('admin.country');
     }
 
     /**
@@ -37,7 +23,8 @@ class ImageController extends Controller
      */
     public function create()
     {
-        //
+        $countries = Country::paginate('10');
+        return view('admin.countrylist', compact('countries'));
     }
 
     /**
@@ -48,7 +35,20 @@ class ImageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'country' => 'required',
+        ]);
+
+        $country = Country::where('country', $request->country)->first();
+        if ($country == Null) {
+            $country = new Country();
+            $country->country = $request->country;
+            $country->save();
+            session()->flash('success', 'new Country added successfully');
+            return redirect()->back();
+        }
+        session()->flash('error', 'Country already exist');
+        return redirect()->back()->with('success', 'Product updated successfully');;
     }
 
     /**
