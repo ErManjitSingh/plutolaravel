@@ -91,6 +91,16 @@
                     </div>
                     <span style="color: red;"> @error('actitity') {{$message}} @enderror</span>
                     <div class="form-group">
+                        <label>Acitivity Price<span style="color: red;">*</span></label>
+                        <input type="text" class="form-control" name="price" id="price">
+                    </div>
+                    <span style="color: red;"> @error('price') {{$message}} @enderror</span>
+                    <div class="form-group">
+                        <label>Acitivity Discount Price<span style="color: red;">*</span></label>
+                        <input type="text" class="form-control" name="dprice" id="dprice">
+                    </div>
+                    <span style="color: red;"> @error('dprice') {{$message}} @enderror</span>
+                    <div class="form-group">
                         <label>Activity Image<span style="color: red;">*</span></label>
                         <input type="file" class="form-control" name="actimg" id="actimg">
                     </div>

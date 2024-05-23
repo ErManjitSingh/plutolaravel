@@ -9,7 +9,7 @@ use App\Http\Controllers\StateController;
 use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\LocationsiteController;
-use App\Models\Product;
+use App\Http\Controllers\ActivityPriceController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -35,7 +35,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', [HomeController::class, 'index'])->name('dashboard')->middleware('auth.dashboard');
-    Route::get('calendar', [HomeController::class, 'create'])->name('calendar');
     // resource
 
     Route::resource('categories', CategoryController::class);
@@ -45,13 +44,13 @@ Route::middleware('auth')->group(function () {
     Route::resource('districts', DistrictController::class);
     Route::resource('cities', CityController::class);
     Route::resource('locationsites', LocationsiteController::class);
+    Route::resource('activity_prices', ActivityPriceController::class);
     // Endresource
 
     // Product Routing
     Route::get('images', [ProductController::class, 'images'])->name('images');
     Route::get('add-product', [ProductController::class, 'index'])->name('add-product');
     Route::POST('product-store', [ProductController::class, 'store'])->name('product-store');
-    Route::get('add-actitity', [ProductController::class, 'activity'])->name('add-actitity');
     // Endproduct Routing
     
     //  delete

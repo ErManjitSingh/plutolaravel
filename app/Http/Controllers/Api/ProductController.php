@@ -18,7 +18,7 @@ class ProductController extends Controller
         $products = Product::all();
         if ($products->count() > 0) {
 
-            return response()->json([
+            return response()->json([ 
                 'Status' => 'The Request Was Successful',
                 'Product' => $products
             ], 200);

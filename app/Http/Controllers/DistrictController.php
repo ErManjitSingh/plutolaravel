@@ -56,7 +56,7 @@ class DistrictController extends Controller
             return redirect()->back();
         }
         session()->flash('error', 'District already exist');
-        return redirect()->back()->with('success', 'Product updated successfully');
+        return redirect()->back();
     }
 
     /**

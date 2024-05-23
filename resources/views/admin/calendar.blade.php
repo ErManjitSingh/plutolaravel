@@ -14,7 +14,7 @@
         <div class="row">
             <div class="col-9">
                 <h2 class="text-center">Calendar</h2>
-                <div class="text-right mr-3 mb-3"><a href="{{route('add-actitity')}}" class="btn btn-primary">
+                <div class="text-right mr-3 mb-3"><a href="{{route('activity_prices.create')}}" class="btn btn-primary">
                         Acitivity price
                     </a></div>
                 <div class="col-md-11 offset-1 ">

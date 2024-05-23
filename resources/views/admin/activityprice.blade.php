@@ -26,7 +26,7 @@
                     @csrf
                     <div class="form-group">
                         <label>Add Activity<span style="color: red;">*</span></label>
-                        <select name="category" class="form-control" required>
+                        <select name="product_id" class="form-control" required>
                             <option value="">Select Activity</option>
                             @foreach($products as $product)
                             <option value="{{$product->id}}">{{$product->title}}</option>
@@ -36,29 +36,29 @@
                     <span style="color: red;"> @error('category') {{$message}} @enderror</span>
                     <div class="form-group">
                         <label>Sater Date<span style="color: red;">*</span></label>
-                        <input type="date" class="form-control" name="date" id="date" required>
+                        <input type="date" class="form-control" name="statr_date" id="statr_date" required>
                     </div>
-                    <span style="color: red;"> @error('date') {{$message}} @enderror</span>
+                    <span style="color: red;"> @error('statr_date') {{$message}} @enderror</span>
                     <div class="form-group">
                         <label>End Date<span style="color: red;">*</span></label>
-                        <input type="date" class="form-control" name="enddate" id="enddate" required>
+                        <input type="date" class="form-control" name="end_date" id="end_date" required>
                     </div>
-                    <span style="color: red;"> @error('enddate') {{$message}} @enderror</span>
+                    <span style="color: red;"> @error('end_date') {{$message}} @enderror</span>
                     <div class="form-group">
                         <label>Actual Price<span style="color: red;">*</span></label>
-                        <input type="text" class="form-control" name="aprice" id="aprice" required>
+                        <input type="text" class="form-control" name="actual_price" id="actual_price" required>
                     </div>
-                    <span style="color: red;"> @error('aprice') {{$message}} @enderror</span>
+                    <span style="color: red;"> @error('actual_price') {{$message}} @enderror</span>
                     <div class="form-group">
                         <label>Sale Price<span style="color: red;">*</span></label>
-                        <input type="text" class="form-control" name="sprice" id="sprice" required>
+                        <input type="text" class="form-control" name="sale_price" id="sale_price" required>
                     </div>
-                    <span style="color: red;"> @error('sprice') {{$message}} @enderror</span>
+                    <span style="color: red;"> @error('sale_price') {{$message}} @enderror</span>
                     <div class="form-group">
                         <label>Discount<span style="color: red;">*</span></label>
-                        <input type="text" class="form-control" name="discount" id="discount" required>
+                        <input type="text" class="form-control" name="discount_price" id="discount_price" required>
                     </div>
-                    <span style="color: red;"> @error('discount') {{$message}} @enderror</span>
+                    <span style="color: red;"> @error('discount_price') {{$message}} @enderror</span>
                     <button type="submit" name="save" class="btn btn-primary mr-2">Submit</button>
                     <!-- <button class="btn btn-light">Cancel</button> -->
                 </form>

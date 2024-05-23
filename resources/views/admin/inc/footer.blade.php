@@ -32,22 +32,17 @@
   <script src="{{asset('assets/vendor/simple-datatables/simple-datatables.js')}}"></script>
   <script src="{{asset('assets/vendor/tinymce/tinymce.min.js')}}"></script>
   <script src="{{asset('assets/vendor/php-email-form/validate.js')}}"></script>
-
   <!-- Template Main JS File -->
   <script src="{{asset('assets/js/main.js')}}"></script>
+
   <script>
       $(document).ready(function() {
+            //   console.log(activity_prices);
           $('#calendar').fullCalendar({
               header: {
                   right: 'prev,next today',
                   left: 'title',
               },
-              //    events: booking,
-              //    selectable: true,
-              //    selectHelper: true,
-              //    select: function(start, end, allDays) {
-
-              //    }
           })
       });
   </script>
@@ -55,7 +50,7 @@
       ClassicEditor
           .create(document.querySelector('#text-editor'))
           .catch(error => {
-              console.error(error);
+              //   console.error(error);
           });
   </script>
   <!-- <script>

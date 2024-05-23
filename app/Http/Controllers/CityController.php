@@ -60,7 +60,7 @@ class CityController extends Controller
             return redirect()->back();
         }
         session()->flash('error', 'City already exist');
-        return redirect()->back()->with('success', 'Product updated successfully');
+        return redirect()->back();
     }
 
     /**

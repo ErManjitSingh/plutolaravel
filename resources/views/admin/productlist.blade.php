@@ -50,7 +50,7 @@
                         <!-- <td> <img src="{{ asset('image/'. $pro->image) }}" width="60px" height="40px"> </td> -->
                         <td><a href="{{route('products.edit',$pro['id'])}}" class="btn btn-outline-secondary btn-icon-text">Edit<i class="typcn typcn-edit  btn-icon-append"></i></a>
                             <a href="{{route('deleteproduct',$pro['id'])}}" onclick="return confirm('Are You Sure Delete Product')" class="btn btn-outline-danger btn-icon-text">Delete<i class="typcn typcn-upload btn-icon-prepend"></i></a>
-                            <a href="{{route('calendar')}}" class="btn btn-outline-secondary btn-icon-text"><i class="bi bi-calendar"></i></a>
+                            <a href="{{route('activity_prices.index')}}" class="btn btn-outline-secondary btn-icon-text"><i class="bi bi-calendar"></i></a>
                         </td>
                     </tr>
                     @endforeach

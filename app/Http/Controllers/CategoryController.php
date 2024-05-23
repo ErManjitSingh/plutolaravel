@@ -88,7 +88,7 @@ class CategoryController extends Controller
             return redirect()->back();
         }
         session()->flash('error', 'Category already exist');
-        return redirect()->back()->with('success', 'Product updated successfully');;
+        return redirect()->back();
     }
 
     /**

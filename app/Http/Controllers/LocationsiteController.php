@@ -63,7 +63,7 @@ class LocationsiteController extends Controller
             return redirect()->back();
         }
         session()->flash('error', 'Location already exist');
-        return redirect()->back()->with('success', 'Product updated successfully');
+        return redirect()->back();
     }
 
     /**

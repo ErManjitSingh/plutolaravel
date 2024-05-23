@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\ActivityPrice;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use App\Models\Product;
+
+use function Ramsey\Uuid\v1;
 
 class ActivityPriceController extends Controller
 {
@@ -13,7 +16,22 @@ class ActivityPriceController extends Controller
      */
     public function index()
     {
-        //
+        $events = array();
+        $activityPrices = ActivityPrice::all();
+        // return $activityPrices;
+        foreach ($activityPrices as $activityPrice) {
+            $events[] = [
+                'id' => $activityPrice->id,
+                'product_id' => $activityPrice->product_id,
+                'statr_date' => $activityPrice->statr_date,
+                'end_date' => $activityPrice->end_date,
+                'actual_price' => $activityPrice->actual_price,
+                'sale_price' => $activityPrice->sale_price,
+                'discount_price' => $activityPrice->discount_price,
+            ];
+        }
+        // return ($events);
+        return view('admin.calendar', ['events' => $events]);
     }
 
     /**
@@ -21,7 +39,8 @@ class ActivityPriceController extends Controller
      */
     public function create()
     {
-        //
+       $products = Product::all(); 
+       return view('admin.activityprice', compact('products'));
     }
 
     /**

@@ -67,6 +67,8 @@ class ProductController extends Controller
             'lsite' => 'required',
             'actitity' => 'required',
             'category' => 'required',
+            'price' => 'required',
+            'dprice' => 'required',
             'actimg' => 'required',
             'image' => 'required',
             'desc' => 'required',
@@ -83,6 +85,8 @@ class ProductController extends Controller
             $product->title = $request->actitity;
             $product->category_id = $request->category;
             $product->description = $request->desc;
+            $product->price = $request->price;
+            $product->discount_price = $request->dprice;
             $product->short_description = $request->sdesc;
             $product->slug = Str::slug($request->actitity);
             $product->status = $request->status;
@@ -169,6 +173,8 @@ class ProductController extends Controller
         $products->location_site_id = $request->lsite;
         $products->title = $request->actitity;
         $products->category_id = $request->category;
+        $products->price = $request->price;
+        $products->discount_price = $request->dprice;
         $products->description = $request->desc;
         $products->short_description = $request->sdesc;
         $products->slug = Str::slug($request->actitity);
@@ -232,9 +238,5 @@ class ProductController extends Controller
     {
         $images = Image::all();
         return view('admin.imageslist', compact('images'));
-    }
-    public function activity(){
-        $products = Product::all();
-        return view('admin.activityprice', compact('products'));
     }
 }

@@ -7,7 +7,7 @@
             <li class="breadcrumb-item"><a href="{{route('dashboard')}}">Home</a></li>
             <li class="breadcrumb-item active">Dashboard</li>
         </ol>
-</nav>
+    </nav>
 </div>
 <div class="row">
     <div class="col-md-12 grid-margin stretch-card">
@@ -91,27 +91,35 @@
                         <label>Activities<span style="color: red;">*</span></label>
                         <input type="text" class="form-control" name="actitity" id="subcat" value="{{$products->title}}">
                     </div>
-                   
-                    
                     <div class="form-group">
                         <label>Acitivity Image<span style="color: red;">*</span></label>
                         <input type="file" class="form-control" name="actimg" id="actimg" value="{{$products->image}}">
-                        <img class="mt-1" src="{{asset('image/'. $products->image)}} "  width="100px" height="70" />
+                        <img class="mt-1" src="{{asset('image/'. $products->image)}} " width="100px" height="70" />
                     </div>
+                    <div class="form-group">
+                        <label>Acitivity Price<span style="color: red;">*</span></label>
+                        <input type="text" class="form-control" name="price" value="{{$products->price}}" id="price">
+                    </div>
+                    <span style="color: red;"> @error('price') {{$message}} @enderror</span>
+                    <div class="form-group">
+                        <label>Acitivity Discount Price<span style="color: red;">*</span></label>
+                        <input type="text" class="form-control" name="dprice" value="{{$products->discount_price}}" id="dprice">
+                    </div>
+                    <span style="color: red;"> @error('dprice') {{$message}} @enderror</span>
                     <div class="form-group">
                         <label>All Acitivity Image<span style="color: red;">*</span></label>
                         <input type="file" class="form-control" name="image[]" multiple id="image" value="{{$products->image}}">
                         @foreach($images as $image)
-                        <img class="mt-1" src="{{asset('/'. $image->image)}}"  width="100px" height="70" />
+                        <img class="mt-1" src="{{asset('/'. $image->image)}}" width="100px" height="70" />
                         @endforeach
                     </div>
                     <div class="form-group">
                         <label>Descripion<span style="color: red;">*</span></label>
-                        <textarea class="form-control" name="desc" id="text-editor">{{$products->description}}</textarea> 
+                        <textarea class="form-control" name="desc" id="text-editor">{{$products->description}}</textarea>
                     </div>
                     <div class="form-group">
                         <label>Short Description<span style="color: red;">*</span></label>
-                        <textarea class="form-control" name="sdesc" id="editor">{{$products->short_description}}</textarea> 
+                        <textarea class="form-control" name="sdesc" id="editor">{{$products->short_description}}</textarea>
                     </div>
                     <div class="form-group pb-3">
                         <label>Status</label>

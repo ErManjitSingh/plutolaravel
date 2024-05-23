@@ -51,7 +51,7 @@ class StateController extends Controller
             return redirect()->back();
         }
         session()->flash('error', 'State already exist');
-        return redirect()->back()->with('success', 'Product updated successfully');
+        return redirect()->back();
     }
 
     /**
