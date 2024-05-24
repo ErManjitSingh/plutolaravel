@@ -22,9 +22,9 @@ class ActivityPriceController extends Controller
         foreach ($activityPrices as $activityPrice) {
             $events[] = [
                 'id' => $activityPrice->id,
-                'product_id' => $activityPrice->product_id,
-                'statr_date' => $activityPrice->statr_date,
-                'end_date' => $activityPrice->end_date,
+                'product' => $activityPrice->product_id,
+                'statr' => $activityPrice->statr_date,
+                'end' => $activityPrice->end_date,
                 'actual_price' => $activityPrice->actual_price,
                 'sale_price' => $activityPrice->sale_price,
                 'discount_price' => $activityPrice->discount_price,
@@ -40,7 +40,8 @@ class ActivityPriceController extends Controller
     public function create()
     {
        $products = Product::all(); 
-       return view('admin.activityprice', compact('products'));
+       $events = ActivityPrice::all();
+       return view('admin.activityprice', compact('products','activityPrice'));
     }
 
     /**

@@ -19,6 +19,7 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.18.1/moment.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.4.0/fullcalendar.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
   <script src="https://cdn.ckeditor.com/ckeditor5/41.4.2/classic/ckeditor.js"></script>
 
 
@@ -37,12 +38,31 @@
 
   <script>
       $(document).ready(function() {
-            //   console.log(activity_prices);
-          $('#calendar').fullCalendar({
+          var activityprice = @json($events);
+          //   console.log(activityprice);
+          var calendar = $('#calendar').fullCalendar({
+              editable: true,
               header: {
-                  right: 'prev,next today',
-                  left: 'title',
+                  left: 'prev,next today',
+                  center: 'title',
+                  right: 'agendaDay,agendaWeek,month'
               },
+              events: activityprice,
+              selectable: true,
+              selectHelper: true,
+              select: function(start, end, allDay) {
+                  $('#price').modal('toggal');
+                  // console.log('selecting.......');
+                  $('$save'),click (function(){
+                    // console.log('saving...');
+                      var product = $('#product_id').val();
+                      var title = $('#title').val();
+                      var start = moment(statr).format('YYYY-MM-DD');
+                      var end  = moment(end).format('YYYY-MM-DD');
+                      var price = $('#price').val();
+                      var description = $('#description').val();
+                  })
+              }
           })
       });
   </script>
@@ -53,29 +73,3 @@
               //   console.error(error);
           });
   </script>
-  <!-- <script>
-       tinymce.init({
-            selector:'#editor',
-            menubar: false,
-            statusbar: false,
-            plugins: 'autoresize anchor autolink charmap code codesample directionality fullpage help hr image imagetools insertdatetime link lists media nonbreaking pagebreak preview print searchreplace table template textpattern toc visualblocks visualchars',
-            toolbar: 'h1 h2 bold italic strikethrough blockquote bullist numlist backcolor | link image media | removeformat help fullscreen ',
-            skin: 'bootstrap',
-            toolbar_drawer: 'floating',
-            min_height: 200,           
-            autoresize_bottom_margin: 16,
-            setup: (editor) => {
-                editor.on('init', () => {
-                    editor.getContainer().style.transition="border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out"
-                });
-                editor.on('focus', () => {
-                    editor.getContainer().style.boxShadow="0 0 0 .2rem rgba(0, 123, 255, .25)",
-                    editor.getContainer().style.borderColor="#80bdff"
-                });
-                editor.on('blur', () => {
-                    editor.getContainer().style.boxShadow="",
-                    editor.getContainer().style.borderColor=""
-                });
-            }
-        });
-  </script> -->
