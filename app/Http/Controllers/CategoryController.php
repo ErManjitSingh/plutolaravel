@@ -1,7 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Category;
+use App\Models\Country;
+use App\Models\State;
+use App\Models\City;
+use App\Models\District;
+use App\Models\Locationsite;
+use App\Models\ActivityPrice;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -14,8 +22,13 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::paginate('10');
-        return view('admin.category', compact('categories'));
+        $events = ActivityPrice::all();
+        $countries = Country::all();
+        $states = State::all();
+        $cities = City::all();
+        $districts = District::all();
+        $locationsites = Locationsite::all();
+        return view('admin.category', compact('countries', 'states', 'cities', 'districts', 'locationsites', 'events'));
     }
 
     /**
@@ -25,8 +38,15 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        $categories = Category::all();
-        return view('admin.categorylist', compact('categories'));
+        $events = ActivityPrice::all();
+        $countries = Country::all();
+        $states = State::all();
+        $cities = City::all();
+        $Districts = District::all();
+        $products = Product::all();
+        $locationsites = Locationsite::all();
+        $categories = Category::orderBy('created_at', 'desc')->paginate(10);
+        return view('admin.categorylist', compact('categories', 'countries', 'states', 'cities', 'Districts', 'locationsites', 'events'));
     }
 
     /**
@@ -40,18 +60,34 @@ class CategoryController extends Controller
 
         $request->validate([
             'category' => 'required',
-            'catimg' => 'required',
+            // 'country' => 'required',
+            // 'state' => 'required',
+            // 'dist' => 'required',
+            // 'city' => 'required',
+            // 'catimg' => 'required',
         ]);
 
         $category = Category::where('title', $request->category)->first();
         if ($category == Null) {
-            $imageName = time() . '.' . $request->catimg->extension();
-            $request->catimg->move(public_path('image'), $imageName);
-            $category = new Category();
+            // $imageName = time() . '.' . $request->catimg->extension();
+            // $request->catimg->move(public_path('image'), $imageName);
+            $category = new Category;
             $category->title = $request->category;
-            $category->image = $imageName;
+            $category->country_id = $request->country;
+            $category->state_id = $request->state;
+            $category->district_id = $request->dist;
+            $category->city_id = $request->city;
+            $category->location_site_id= $request->lsite;
+            // $category->image = $imageName;
             $category->status = $request->status;
             $category->slug = Str::slug($request->category);
+            if (!empty($request->file('catimg'))) {
+                $file = $request->file('catimg');
+                $rendomStr = Str::random(30);
+                $filemame = $rendomStr . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('image'), $filemame);
+                $category->image = $filemame;
+            }
             $category->save();
             session()->flash('success', 'new Category added successfully');
             return redirect()->back();
@@ -79,8 +115,14 @@ class CategoryController extends Controller
      */
     public function edit(Category $categories, $id)
     {
+        $events = ActivityPrice::all();
+        $countries = Country::all();
+        $states = State::all();
+        $cities = City::all();
+        $districts = District::all();
+        $locationsites = Locationsite::all();
         $categories = Category::findOrfail($id);
-        return view('admin.editcategory', compact("categories"));
+        return view('admin.editcategory', compact('categories', 'countries', 'states', 'cities', 'districts', 'locationsites', 'events'));
     }
 
     /**
@@ -95,17 +137,35 @@ class CategoryController extends Controller
         $request->validate([
             'category' => 'required',
         ]);
-        $imageName = time() . '.' . $request->catimg->extension();
-        $request->catimg->move(public_path('image'), $imageName);
+        // dd($request->all());
+        // $imageName = time() . '.' . $request->catimg->extension();
+        // $request->catimg->move(public_path('image'), $imageName);
         $categories = Category::find($request->id);
+        $categories->country_id = $request->country;
+        $categories->state_id = $request->state;
+        $categories->district_id = $request->dist;
+        $categories->city_id = $request->city;
+        $categories->location_site_id = $request->lsite;
         $categories->title = $request->category;
+        // $categories->image = $imageName;
         // $categories->image = $request->catimg;
-        $categories->image = $imageName;
         $categories->status = $request->status;
         $categories->slug = Str::slug($request->category);
+
+        if (!empty($request->file('catimg'))) {
+
+            if (!empty($categories->image) && file_exists(public_path('image/' . $categories->image))) {
+                unlink(public_path('image/' . $categories->image));
+            }
+
+            $file = $request->file('catimg');
+            $randomStr = Str::random(30);
+            $filename = $randomStr . '.' . $request->file('catimg')->getClientOriginalExtension();
+            $file->move(public_path('image'), $filename);
+            $categories->image = $filename;
+        }
         $categories->save();
-        session()->flash('success', ' category Update successfully');
-        return redirect()->route('categories.create');
+        return redirect()->back()->with('success', 'Category updated successfully');
     }
 
     /**
@@ -117,6 +177,6 @@ class CategoryController extends Controller
     public function destroy(Category $categories, $id)
     {
         $categories = Category::where('id', $id)->delete();
-        return redirect()->route('categories.index');
+        return redirect()->route('categories.create');
     }
 }

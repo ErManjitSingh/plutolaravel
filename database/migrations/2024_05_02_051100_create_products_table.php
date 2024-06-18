@@ -25,6 +25,7 @@ return new class extends Migration
             $table->integer('rating');
             $table->string('slug');
             $table->tinyInteger('status')->default(1);
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }
