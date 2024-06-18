@@ -10,6 +10,7 @@ use App\Models\State;
 use App\Models\District;
 use App\Models\City;
 use App\Models\Locationsite;
+use App\Models\ActivityPrice;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 
@@ -23,13 +24,14 @@ class ProductController extends Controller
     public function index()
     {
         // dd('test');
+        $events = ActivityPrice::all();
         $countries = Country::all();
         $states = State::all();
         $cities = City::all();
         $districts = District::all();
         $locationsites = Locationsite::all();
         $categories = Category::all();
-        return view('admin.product', compact('countries', 'states', 'cities', 'districts', 'locationsites', 'categories'));;
+        return view('admin.product', compact('countries', 'states', 'cities', 'districts', 'locationsites', 'categories', 'events'));
     }
 
     /**
@@ -37,8 +39,16 @@ class ProductController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
+        $search = $request['search'] ?? "";
+        if ($search != "") {
+            $products = Product::where('title', 'LIKE', "%$search")->get();
+        } else {
+            $products = Product::all();
+            $categories = Category::all();
+        }
+        $events = ActivityPrice::all();
         $countries = Country::all();
         $states = State::all();
         $cities = City::all();
@@ -46,8 +56,9 @@ class ProductController extends Controller
         $locationsites = Locationsite::all();
         $categories = Category::all();
         $categories = Category::all();
-        $products = Product::paginate('10');
-        return view('admin.productlist', compact('products', 'categories', 'countries', 'states', 'cities', 'districts', 'locationsites'));;
+        // $products = Product::latest()->paginate(10);
+        $products = Product::orderBy('created_at', 'desc')->paginate(10);
+        return view('admin.productlist', compact('products', 'categories', 'countries', 'states', 'cities', 'districts', 'locationsites', 'events', 'search'));
     }
 
     /**
@@ -67,10 +78,10 @@ class ProductController extends Controller
             'lsite' => 'required',
             'actitity' => 'required',
             'category' => 'required',
-            'price' => 'required',
-            'dprice' => 'required',
+            // 'price' => 'required',
+            // 'dprice' => 'required',
             'actimg' => 'required',
-            'image' => 'required',
+            'allimage' => 'required',
             'desc' => 'required',
             'sdesc' => 'required',
         ]);
@@ -85,8 +96,8 @@ class ProductController extends Controller
             $product->title = $request->actitity;
             $product->category_id = $request->category;
             $product->description = $request->desc;
-            $product->price = $request->price;
-            $product->discount_price = $request->dprice;
+            // $product->price = $request->price;
+            // $product->discount_price = $request->dprice;
             $product->short_description = $request->sdesc;
             $product->slug = Str::slug($request->actitity);
             $product->status = $request->status;
@@ -100,7 +111,7 @@ class ProductController extends Controller
             }
             $product->save();
 
-            foreach ($request->file('image') as $imagefile) {
+            foreach ($request->file('allimage') as $imagefile) {
                 $image = new Image();
                 $path = $imagefile->store('/products/', ['disk' =>   'my_files']);
                 $image->image = $path;
@@ -134,6 +145,7 @@ class ProductController extends Controller
      */
     public function edit(Product $products, $id)
     {
+        $events = ActivityPrice::all();
         $products = Product::findOrfail($id);
         $images = Image::all();
         $categories = Category::all();
@@ -142,7 +154,7 @@ class ProductController extends Controller
         $cities = City::all();
         $districts = District::all();
         $locationsites = Locationsite::all();
-        return view('admin.editproduct', compact('products', 'categories', 'countries', 'states', 'cities', 'images', 'districts', 'locationsites'));
+        return view('admin.editproduct', compact('products', 'categories', 'countries', 'states', 'cities', 'images', 'districts', 'locationsites', 'events'));
     }
 
     /**
@@ -173,8 +185,8 @@ class ProductController extends Controller
         $products->location_site_id = $request->lsite;
         $products->title = $request->actitity;
         $products->category_id = $request->category;
-        $products->price = $request->price;
-        $products->discount_price = $request->dprice;
+        // $products->price = $request->price;
+        // $products->discount_price = $request->dprice;
         $products->description = $request->desc;
         $products->short_description = $request->sdesc;
         $products->slug = Str::slug($request->actitity);
@@ -191,35 +203,21 @@ class ProductController extends Controller
             $products->image = $filename;
         }
         $products->save();
-
-        if (!empty($request->file('image'))) {
-            $image = new Image();
-            // if (!empty($image->image) && file_exists('/products/', ['disk' =>   'my_files']) .
-            //     $image->image)
-            //     {
-            //     unlink('/products/', ['disk' =>   'my_files']) . $image->image;
-            // }
-            foreach ($request->file('image') as $imagefile) {
+        $image = Image::find($request->id);
+        if (!empty($request->file('allimage'))) {
+            if (
+                !empty($image->image) && file_exists('/products/', ['disk' =>   'my_files']) .
+                $image->image
+            ) {
+                unlink('/products/', ['disk' =>   'my_files']) . $image->image;
+            }
+            foreach ($request->file('allimage') as $imagefile) {
                 $path = $imagefile->store('/products/', ['disk' =>   'my_files']);
                 $image->image = $path;
                 $image->product_id = $products->id;
                 $image->save();
             }
         }
-        // if ($request->hasfile('image')) {
-        //     foreach ($request->file('image') as $file) {
-        //         // Generate a unique name for the image
-        //         $name = time() . '_' . $file->getClientOriginalName();
-        //         // Store the image in the 'public/images' directory
-        //         $file->store('/products/', ['disk' =>   'my_files']);
-
-        //         // Save the path to the database
-        //         $image = new Image();
-        //         $image->image = '/products/' . $name;
-        //         $image->save();
-        //     }
-        // }
-
         return redirect()->back()->with('success', 'Product updated successfully');
     }
 
@@ -237,6 +235,7 @@ class ProductController extends Controller
     public function images()
     {
         $images = Image::all();
-        return view('admin.imageslist', compact('images'));
+        $events = ActivityPrice::all();
+        return view('admin.imageslist', compact('images', 'events'));
     }
 }

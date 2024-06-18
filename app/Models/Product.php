@@ -35,7 +35,15 @@ class Product extends Model
     {
         return $this->belongsTo(City::class);
     }
-    public function locationsite(){
+    public function location_site()
+    {
         return $this->belongsTo(Locationsite::class);
+    }
+    public function activities()
+    {
+        return $this->belongsTo(ActivityPrice::class);
+    }
+    public function batch(){
+        return $this->belongsTo(Batch::class);
     }
 }

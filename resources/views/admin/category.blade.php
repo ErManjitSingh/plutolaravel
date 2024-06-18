@@ -22,76 +22,74 @@
                 <div class="alert alert-danger">{{session('error')}}</div>
                 @endif
                 </p>
-                <form class="forms-sample" action="{{route('categories.store')}}" method="POST" enctype="multipart/form-data">
+                <form class="row g-3" action="{{route('categories.store')}}" method="POST" enctype="multipart/form-data">
                     @csrf
-                    <div class="form-group">
-                        <label>Add Country<span style="color: red;">*</span></label>
-                        <select name="country" class="form-control" required>
-                            <option value="">Select Category</option>
+                    <div class="col-md-4">
+                        <label for="inputState" class="form-label">Country<span style="color: red;">*</span></label>
+                        <select id="inputState" name="country" class="form-select">
+                            <option>Choose...</option>
                             @foreach($countries as $country)
                             <option value="{{$country->id}}">{{$country->country}}</option>
                             @endforeach
                         </select>
+                        <span style="color: red;"> @error('country') {{$message}} @enderror</span>
                     </div>
-                    <span style="color: red;"> @error('country') {{$message}} @enderror</span>
-                    <div class="form-group">
-                        <label>Add State<span style="color: red;">*</span></label>
-                        <select name="state" class="form-control" required>
-                            <option value="">Select Category</option>
+                    <div class="col-md-4">
+                        <label for="inputState" class="form-label">State<span style="color: red;">*</span></label>
+                        <select id="inputState" name="state" class="form-select">
+                            <option>Choose...</option>
                             @foreach($states as $state)
                             <option value="{{$state->id}}">{{$state->state}}</option>
                             @endforeach
                         </select>
+                        <span style="color: red;"> @error('state') {{$message}} @enderror</span>
                     </div>
-                    <span style="color: red;"> @error('state') {{$message}} @enderror</span>
-
-                    <div class="form-group">
-                        <label>Add District<span style="color: red;">*</span></label>
-                        <select name="dist" class="form-control" required>
-                            <option value="">Select Category</option>
-                            @foreach($districts as $distcict)
-                            <option value="{{$distcict->id}}">{{$distcict->district}}</option>
+                    <div class="col-md-4">
+                        <label for="inputState" class="form-label">District<span style="color: red;">*</span></label>
+                        <select id="inputState" name="dist" class="form-select">
+                            <option>Choose...</option>
+                            @foreach($districts as $district)
+                            <option value="{{$district->id}}">{{$district->district}}</option>
                             @endforeach
                         </select>
+                        <span style="color: red;"> @error('dist') {{$message}} @enderror</span>
                     </div>
-                    <span style="color: red;"> @error('dist') {{$message}} @enderror</span>
-                    <div class="form-group">
-                        <label>Add City<span style="color: red;">*</span></label>
-                        <select name="city" class="form-control" required>
-                            <option value="">Select Category</option>
+                    <div class="col-md-4">
+                        <label for="inputState" class="form-label">City<span style="color: red;">*</span></label>
+                        <select id="inputState" name="city" class="form-select">
+                            <option>Choose...</option>
                             @foreach($cities as $city)
                             <option value="{{$city->id}}">{{$city->city}}</option>
                             @endforeach
                         </select>
+                        <span style="color: red;"> @error('city') {{$message}} @enderror</span>
                     </div>
-                    <span style="color: red;"> @error('city') {{$message}} @enderror</span>
-                    <div class="form-group">
-                        <label>Location Site<span style="color: red;">*</span></label>
-                        <select name="lsite" class="form-control" required>
-                            <option value="">Select Category</option>
-                            @foreach($locationsites as $location)
-                            <option value="{{$location->id}}">{{$location->location_site}}</option>
+                    <div class="col-md-4">
+                        <label for="inputState" class="form-label">Location Site<span style="color: red;">*</span></label>
+                        <select id="inputState" name="lsite" class="form-select">
+                            <option>Choose...</option>
+                            @foreach($locationsites as $locationsite)
+                            <option value="{{$locationsite->id}}">{{$locationsite->location_site}}</option>
                             @endforeach
                         </select>
+                        <span style="color: red;"> @error('lsite') {{$message}} @enderror</span>
                     </div>
-                    <span style="color: red;"> @error('lsite') {{$message}} @enderror</span>
-                    <div class="form-group">
+                    <div class="col-md-4">
                         <label>Add Category<span style="color: red;">*</span></label>
-                        <input type="text" class="form-control" name="category" id="category" >
+                        <input type="text" class="form-control" name="category" id="category">
                     </div>
                     <span style="color: red;"> @error('category') {{$message}} @enderror</span>
-                    <div class="form-group">
+                    <div class="col-md-6">
                         <label>Category Image<span style="color: red;">*</span></label>
-                        <input type="file" class="form-control" name="catimg" id="catimg" >
+                        <input type="file" class="form-control" name="catimg" id="catimg">
                     </div>
                     <span style="color: red;"> @error('catimg') {{$message}} @enderror</span>
-                    <div class="form-group pb-3">
+                    <div class="col-md-6 pb-3">
                         <label>Status</label>
-                        <select name="status" class="form-control" >
+                        <select name="status" class="form-control">
                             <option value="1">Active</option>
                             <option value="0">Inactive</option>
                         </select>
-
                     </div>
                     <button type="submit" name="save" class="btn btn-primary mr-2">Submit</button>
                     <!-- <button class="btn btn-light">Cancel</button> -->

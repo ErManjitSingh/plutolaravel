@@ -31,7 +31,7 @@
                         <select name="country" class="form-control">
                             <option value="">Select Category</option>
                             @foreach($countries as $country)
-                            <option value="{{$country->id}}">{{$country->country}}</option>
+                            <option value="{{$country->id}}" {{($country->id==$categories->country_id) ? 'selected' : ''}}>{{$country->country}}</option>
                             @endforeach
                         </select>
                     </div>

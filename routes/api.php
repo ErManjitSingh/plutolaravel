@@ -6,6 +6,8 @@ Use App\Http\Controllers\Api\CategoryController;
 use App\Http\Controllers\Api\ImageController;
 use App\Http\Controllers\Api\ProductController;
 use App\Http\Controllers\Api\SubcategoryController;
+use App\Http\Controllers\Api\ActivitypriceController;
+use App\Http\Controllers\Api\BatchController;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +29,5 @@ Route::get('categories', [CategoryController::class, 'index']);
 Route::get('subcategories', [SubcategoryController::class, 'index']);
 Route::get('products', [ProductController::class, 'index']);
 Route::get('images', [ImageController::class, 'index']);
+Route::get('activityprices', [ActivityPriceController::class, 'index']);
+Route::get('batches', [BatchController::class, 'index']);

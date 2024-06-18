@@ -30,7 +30,7 @@
                         <select name="country" class="form-control">
                             <option value="">Select Country</option>
                             @foreach($countries as $country)
-                            <option value="{{$country->id}}">{{$country->country}}</option>
+                            <option value="{{$country->id}}" {{($country->id==$products->country_id) ? 'selected' : ''}}>{{$country->country}}</option>
                             @endforeach
                         </select>
                     </div>
@@ -96,7 +96,7 @@
                         <input type="file" class="form-control" name="actimg" id="actimg" value="{{$products->image}}">
                         <img class="mt-1" src="{{asset('image/'. $products->image)}} " width="100px" height="70" />
                     </div>
-                    <div class="form-group">
+                    <!-- <div class="form-group">
                         <label>Acitivity Price<span style="color: red;">*</span></label>
                         <input type="text" class="form-control" name="price" value="{{$products->price}}" id="price">
                     </div>
@@ -105,21 +105,21 @@
                         <label>Acitivity Discount Price<span style="color: red;">*</span></label>
                         <input type="text" class="form-control" name="dprice" value="{{$products->discount_price}}" id="dprice">
                     </div>
-                    <span style="color: red;"> @error('dprice') {{$message}} @enderror</span>
+                    <span style="color: red;"> @error('dprice') {{$message}} @enderror</span> -->
                     <div class="form-group">
                         <label>All Acitivity Image<span style="color: red;">*</span></label>
-                        <input type="file" class="form-control" name="image[]" multiple id="image" value="{{$products->image}}">
+                        <input type="file" class="form-control" name="allimage[]" multiple id="image" value="{{$products->image}}">
                         @foreach($images as $image)
                         <img class="mt-1" src="{{asset('/'. $image->image)}}" width="100px" height="70" />
                         @endforeach
                     </div>
                     <div class="form-group">
                         <label>Descripion<span style="color: red;">*</span></label>
-                        <textarea class="form-control" name="desc" id="text-editor">{{$products->description}}</textarea>
+                        <textarea class="form-control" name="desc" id="editor">{{$products->description}}</textarea>
                     </div>
                     <div class="form-group">
                         <label>Short Description<span style="color: red;">*</span></label>
-                        <textarea class="form-control" name="sdesc" id="editor">{{$products->short_description}}</textarea>
+                        <textarea class="form-control" name="sdesc" id="Eeditor">{{$products->short_description}}</textarea>
                     </div>
                     <div class="form-group pb-3">
                         <label>Status</label>

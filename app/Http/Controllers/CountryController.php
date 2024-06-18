@@ -1,7 +1,9 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Country; 
+
+use App\Models\Country;
+use App\Models\ActivityPrice;
 use Illuminate\Http\Request;
 
 class CountryController extends Controller
@@ -13,7 +15,8 @@ class CountryController extends Controller
      */
     public function index()
     {
-        return view('admin.country');
+        $events = ActivityPrice::all();
+        return view('admin.country', compact('events'));
     }
 
     /**
@@ -23,8 +26,9 @@ class CountryController extends Controller
      */
     public function create()
     {
-        $countries = Country::paginate('10');
-        return view('admin.countrylist', compact('countries'));
+        // $events = ActivityPrice::all();
+        // $countries = Country::paginate('10');
+        // return view('admin.countrylist', compact('countries', 'events'));
     }
 
     /**

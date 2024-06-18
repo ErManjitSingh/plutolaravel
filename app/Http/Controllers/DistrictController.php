@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Country;
 use App\Models\State;
-use App\Models\City;
+use App\Models\ActivityPrice;
 use App\Models\District;
 use Illuminate\Http\Request;
 
@@ -16,9 +16,10 @@ class DistrictController extends Controller
      */
     public function index()
     {
+        $events = ActivityPrice::all();
         $countries = Country::all();
         $states = State::all();
-        return view('admin.district',compact('states','countries'));
+        return view('admin.district',compact('states','countries','events'));
     }
 
     /**

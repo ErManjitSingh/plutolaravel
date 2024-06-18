@@ -3,8 +3,8 @@
 
     <div class="d-flex align-items-center justify-content-between">
       <a href="{{route('dashboard')}}" class="logo d-flex align-items-center">
-        <!-- <img src="assets/img/logo.png" alt=""> -->
-        <span class="d-none d-lg-block"> {{ __("You're logged in") }}</span>
+        <img src="{{asset('assets/img/profile-img.png')}}" height="50"  >
+        <!-- <span class="d-none d-lg-block"> {{ __("You're logged in") }}</span> -->
       </a>
 
       <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -12,10 +12,11 @@
 
     <div class="search-bar">
       <form class="search-form d-flex align-items-center" method="get" action="#">
-        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+        <input type="search" name="query" placeholder="Search" title="Enter search keyword">
         <button type="submit" title="Search"><i class="bi bi-search"></i></button>
       </form>
-    </div><!-- End Search Bar -->
+    </div>
+    <!-- End Search Bar -->
 
     <nav class="header-nav ms-auto">
       <ul class="d-flex align-items-center">
@@ -69,7 +70,7 @@
                 @csrf
                 <li>
                   <a class="dropdown-item d-flex align-items-center" href="{{route('logout')}}" onclick="event.preventDefault();
-                                                this.closest('form').submit();">
+                    this.closest('form').submit();">
                     <i class="bi bi-box-arrow-right"></i>
                     <span> {{ __('Log Out') }}</span>
                   </a>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use App\Models\Country;
 use App\Models\State;
+use App\Models\ActivityPrice;
 use Illuminate\Http\Request;
 
 class StateController extends Controller
@@ -14,8 +15,9 @@ class StateController extends Controller
      */
     public function index()
     {
+        $events = ActivityPrice::all();
         $countries = Country::all();
-        return view('admin.state', compact('countries'));
+        return view('admin.state', compact('countries','events'));
     }
 
     /**

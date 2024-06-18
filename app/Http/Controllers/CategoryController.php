@@ -8,6 +8,8 @@ use App\Models\State;
 use App\Models\City;
 use App\Models\District;
 use App\Models\Locationsite;
+use App\Models\ActivityPrice;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 
@@ -20,12 +22,13 @@ class CategoryController extends Controller
      */
     public function index()
     {
+        $events = ActivityPrice::all();
         $countries = Country::all();
         $states = State::all();
         $cities = City::all();
         $districts = District::all();
         $locationsites = Locationsite::all();
-        return view('admin.category', compact('countries', 'states', 'cities', 'districts', 'locationsites'));
+        return view('admin.category', compact('countries', 'states', 'cities', 'districts', 'locationsites', 'events'));
     }
 
     /**
@@ -35,13 +38,15 @@ class CategoryController extends Controller
      */
     public function create()
     {
+        $events = ActivityPrice::all();
         $countries = Country::all();
         $states = State::all();
         $cities = City::all();
         $Districts = District::all();
+        $products = Product::all();
         $locationsites = Locationsite::all();
-        $categories = Category::Paginate();
-        return view('admin.categorylist', compact('categories', 'countries', 'states', 'cities', 'Districts', 'locationsites'));
+        $categories = Category::orderBy('created_at', 'desc')->paginate(10);
+        return view('admin.categorylist', compact('categories', 'countries', 'states', 'cities', 'Districts', 'locationsites', 'events'));
     }
 
     /**
@@ -110,13 +115,14 @@ class CategoryController extends Controller
      */
     public function edit(Category $categories, $id)
     {
+        $events = ActivityPrice::all();
         $countries = Country::all();
         $states = State::all();
         $cities = City::all();
         $districts = District::all();
         $locationsites = Locationsite::all();
         $categories = Category::findOrfail($id);
-        return view('admin.editcategory', compact('categories', 'countries', 'states', 'cities', 'districts', 'locationsites'));
+        return view('admin.editcategory', compact('categories', 'countries', 'states', 'cities', 'districts', 'locationsites', 'events'));
     }
 
     /**

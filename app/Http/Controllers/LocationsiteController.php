@@ -6,6 +6,7 @@ use App\Models\State;
 use App\Models\District;
 use App\Models\City;
 use App\Models\Locationsite;
+use App\Models\ActivityPrice;
 use Illuminate\Http\Request;
 
 class LocationsiteController extends Controller
@@ -17,11 +18,12 @@ class LocationsiteController extends Controller
      */
     public function index()
     {
+        $events = ActivityPrice::all();
         $countries = Country::all();
         $states = State::all();
         $cities = City::all();
         $districts = District::all();
-        return view('admin.locationsite',compact('countries','states','cities','districts'));
+        return view('admin.locationsite',compact('countries','states','cities','districts','events'));
     }
 
     /**

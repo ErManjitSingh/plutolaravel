@@ -20,8 +20,11 @@ class Locationsite extends Model
         public function city(){
         return $this->belongsTo(City::class);
     }
-    public function locationsite(){
+    public function location_site(){
         return $this->belongsTo(Locationsite::class);
     }
-    
+    public function product(){
+        return $this->belongsTo(Product::class);
+    }
+
 }

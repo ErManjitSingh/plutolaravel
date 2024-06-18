@@ -6,6 +6,7 @@ use App\Models\City;
 use App\Models\Country;
 use App\Models\State;
 use App\Models\District;
+use App\Models\ActivityPrice;
 use Illuminate\Http\Request;
 
 class CityController extends Controller
@@ -17,10 +18,11 @@ class CityController extends Controller
      */
     public function index()
     {
+        $events = ActivityPrice::all();
         $countries = Country::all();
         $states = State::all();
         $districts = District::all();
-        return view('admin.city',compact('countries','states','districts'));
+        return view('admin.city',compact('countries','states','districts','events'));
     }
 
     /**

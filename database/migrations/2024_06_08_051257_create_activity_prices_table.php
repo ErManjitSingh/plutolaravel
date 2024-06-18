@@ -14,11 +14,12 @@ return new class extends Migration
         Schema::create('activity_prices', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('product_id');
-            $table->dateTime('statr_date');
+            $table->dateTime('start_date');
             $table->dateTime('end_date');
             $table->string('actual_price');
             $table->string('sale_price');
             $table->string('discount_price');
+            $table->foreign('product_id')->references('id')->on('products')->onDelete('cascade');
             $table->timestamps();
         });
     }

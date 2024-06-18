@@ -67,26 +67,7 @@
       </li><!-- End Components Nav -->
 
 
-      <!-- Subcategories -->
 
-      <!-- <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-journal-text"></i><span>Subcategories</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>Add Subcategory</span>
-            </a>
-          </li>
-          <li>
-            <a href="#">
-              <i class="bi bi-circle"></i><span>Subcategory List</span>
-            </a>
-          </li>
-        </ul>
-      </li> -->
-      <!-- End Subcategories -->
 
 
       <li class="nav-item">
@@ -105,11 +86,36 @@
             </a>
           </li>
           <li>
+            <a href="{{route('activity_prices.create')}}">
+              <i class="bi bi-circle"></i><span>Activities Price List</span>
+            </a>
+          </li>
+          <!-- <li>
             <a href="{{route('images')}}">
               <i class="bi bi-circle"></i><span>Activities Images List</span>
             </a>
+          </li> -->
+        </ul>
+        <!-- Batches -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-journal-text"></i><span>Batches</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="{{route('batches.index')}}">
+              <i class="bi bi-circle"></i><span>Add Batch</span>
+            </a>
+          </li>
+          <li>
+            <a href="{{route('batches.create')}}">
+              <i class="bi bi-circle"></i><span>Batch List</span>
+            </a>
           </li>
         </ul>
+      </li>
+      <!-- End Batches -->
       </li>
       <!-- <li class="nav-item">
         <a class="nav-link " href="#">
@@ -140,7 +146,6 @@
         </ul>
       </li> -->
       <!-- End Icons Nav -->
-
     </ul>
 
   </aside><!-- End Sidebar-->

@@ -37,6 +37,7 @@
                 <h1>No Found Data</h1>
                 @endif
             </table>
+            {{$countries->onEachSide(1)->links()}}
             <!-- End Default Table Example -->
         </div>
     </div>

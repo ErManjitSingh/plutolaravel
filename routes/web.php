@@ -10,6 +10,7 @@ use App\Http\Controllers\DistrictController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\LocationsiteController;
 use App\Http\Controllers\ActivityPriceController;
+use App\Http\Controllers\BatchController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -45,21 +46,26 @@ Route::middleware('auth')->group(function () {
     Route::resource('cities', CityController::class);
     Route::resource('locationsites', LocationsiteController::class);
     Route::resource('activity_prices', ActivityPriceController::class);
+    Route::resource('batches', BatchController::class);
     // Endresource
 
     // Product Routing
-    Route::get('images', [ProductController::class, 'images'])->name('images');
-    Route::get('add-product', [ProductController::class, 'index'])->name('add-product');
+    Route::GET('images', [ProductController::class, 'images'])->name('images');
+    Route::GET('add-product', [ProductController::class, 'index'])->name('add-product');
     Route::POST('product-store', [ProductController::class, 'store'])->name('product-store');
+    Route::GET('calendar', [ActivityPriceController::class, 'index'])->name('calendar');
+    Route::GET('calendar', [HomeController::class, 'calendar'])->name('calendar');
     // Endproduct Routing
     
     //  delete
-    Route::get('delete-category/{id}', [CategoryController::class, 'destroy'])->name('delete-category');
-    Route::get('deleteproduct/{id}', [ProductController::class, 'destroy'])->name('deleteproduct');
-    // Route::get('tour-galary',[ProductController::class,'galary'])->name('tour-galary');
+    Route::GET('delete-category/{id}', [CategoryController::class, 'destroy'])->name('delete-category');
+    Route::GET('deleteproduct/{id}', [ProductController::class, 'destroy'])->name('deleteproduct');
+    Route::GET('delete-price/{id}', [ActivityPriceController::class, 'destroy'])->name('delete-price');
+    Route::GET('deletebatch/{id}', [BatchController::class, 'destroy'])->name('deletebatch');
+    // Route::GET('tour-galary',[ProductController::class,'galary'])->name('tour-galary');
     // enddelete
 
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::GET('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
